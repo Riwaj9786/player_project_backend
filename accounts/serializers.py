@@ -91,7 +91,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('confirm_password')
         validated_data['password'] = make_password(validated_data['password'])
-        return User.objects.create(**validated_data)
+        user = User.objects.create(**validated_data)
+        user.save()
+        return user
     
 
 class EditUserSerializer(serializers.ModelSerializer):

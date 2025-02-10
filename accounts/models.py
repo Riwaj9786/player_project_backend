@@ -122,14 +122,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
    def has_module_perms(self, app_label):
       """Check if the user has permissions to access the specified app."""
       return True
-   
 
-@receiver(post_save, sender=User)
-def create_user_player(sender, instance, created, **kwargs):
-   if created and instance.role == "PLAYER":
-      Player.objects.create(
-         user = instance,
-      )
 
 
 def create_player_slug(slug):
@@ -161,10 +154,8 @@ class Player(models.Model):
       if not self.slug:
          slug = create_player_slug(self.user.name)
          self.slug = slug
-
-      self.rating = self.calculate_player_rating()
-
       super().save(*args, **kwargs)
+      self.rating = self.calculate_player_rating()
 
 
    def calculate_player_rating(self):
@@ -203,3 +194,10 @@ class InvitedManager(models.Model):
 
    def __str__(self):
       return self.email
+   
+
+
+@receiver(post_save, sender=User)
+def create_user_player(sender, instance, created, **kwargs):
+   if created and instance.role == "PLAYER":
+      Player.objects.create(user=instance)

@@ -22,7 +22,7 @@ class PlayerAdmin(admin.ModelAdmin):
    exclude = ('slug',)
    search_fields = ('user',)
 
-   readonly_fields = ('user', 'rating', 'games_played')
+   readonly_fields = ('rating', 'games_played')
    ordering = ('-goals', '-assists', '-rating', 'user')
 
 

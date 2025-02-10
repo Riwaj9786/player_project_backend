@@ -43,6 +43,9 @@ def send_manager_invitation_mail(email, name, registration_link):
    from_email = settings.EMAIL_HOST_USER
    recipient_list = [email]
 
+   print(from_email)
+   print(recipient_list)
+
    try:
       send_mail(subject, message, from_email, recipient_list, fail_silently=False)
       print("Sending Mail")

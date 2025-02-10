@@ -39,6 +39,7 @@ class GameAdmin(admin.ModelAdmin):
    list_display = ('game_id', 'goalsA', 'goalsB', 'date', 'time', 'futsal', 'is_complete')
    list_display_links = ('game_id', 'date', 'time', 'futsal')
    readonly_fields = ('game_id',)
+   ordering = ('is_complete',)
 
    fieldsets = (
       ('Game Details', {

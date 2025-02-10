@@ -202,7 +202,7 @@ class UserRegisterCreateAPIView(generics.GenericAPIView):
         data = request.data.copy()
         data['role'] = "PLAYER"
 
-        serializer = self.get_serializer(data=data)
+        serializer = self.serializer_class(data=data)
 
         if serializer.is_valid():
             serializer.save()
@@ -235,7 +235,7 @@ class InviteNewManagerAPIView(generics.GenericAPIView):
             )
         else:
             encoded_email = urlsafe_base64_encode(force_bytes(email))
-            registration_url = f"{request.scheme}://{request.get_host()}/accounts/register/manager/invited/{encoded_email}/"
+            registration_url = f"{request.scheme}://{request.get_host()}/api/v1/accounts/register/manager/invited/{encoded_email}/"
 
             send_manager_invitation_mail.delay(email, name, registration_url)
 
