@@ -13,7 +13,7 @@ class AvailablePlayersInline(admin.TabularInline):
    model = Game.available_players.through
    extra = 0
    can_delete = False
-   readonly_fields = ('player',)
+   # readonly_fields = ('player',)
    
    verbose_name = "Available Player"
 
@@ -47,6 +47,9 @@ class GameAdmin(admin.ModelAdmin):
       }),
       ('Game Stats', {
          "fields": ('goalsA', 'goalsB')
+      }),
+      (' Team Names', {
+         "fields": ('teamnameA', 'teamnameB')
       })
    )
 
@@ -64,7 +67,7 @@ class FutsalAdmin(admin.ModelAdmin):
 class PlayerReviewRatingAdmin(admin.ModelAdmin):
    list_display = ('player', 'game', 'rating_player', 'rating')
    list_display_links = ('player', 'game', 'rating_player', 'rating')
-   readonly_fields = ('player', 'game', 'rating_player', 'rating')
+   # readonly_fields = ('player', 'game', 'rating_player', 'rating')
 
 
 @admin.register(PlayerGameRating)
